@@ -1,0 +1,72 @@
+[tool.poetry]
+name = "BorgDQN-Env-Agent"
+version = "0.1.0"
+description = "The environment-agent microservice of BorgDQN."
+authors = ["Ben Felder <benjamin.felder@iubh.de>"]
+license = "MIT"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+gym = { extras = ["atari"], version = "*" }
+autorom = { extras = ["accept-rom-license"], version = "*" }
+opencv-python = "*"
+torch = ">=2.0.0, !=2.0.1, !=2.1.0"
+lightning = ">=2.0.0, !=2.0.1, !=2.1.0"
+loguru = "*"
+protobuf = "*"
+redis = { extras = ["hiredis"], version = "*" }
+confluent-kafka = "*"
+dataclasses-json = "^0.6.1"
+pip = "^23.3"
+envclasses = "^0.3.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "*"
+ruff = "*"
+mypy = "*"
+deptry = "*"
+vulture = "*"
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+
+[tool.poetry.scripts]
+loop = "src.__main__:loop"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+# https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-format
+line-length = 88
+target_version = ["py311"]
+
+[tool.ruff]
+# https://pypi.org/project/ruff/
+line-length = 88
+target-version = "py311"
+ignore = ["E402", "F841", "F401"]
+src = ["src"]
+
+[tool.ruff.isort]
+# https://beta.ruff.rs/docs/settings/#isort
+# https://beta.ruff.rs/docs/faq/#how-does-ruffs-import-sorting-compare-to-isort
+known-local-folder = ["src"]
+
+[tool.mypy]
+# https://mypy.readthedocs.io/en/stable/config_file.html#example-pyproject-toml
+# disallow_untyped_calls = true
+# disallow_untyped_decorators = true
+# disallow_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_subclassing_any = true
+ignore_missing_imports = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
