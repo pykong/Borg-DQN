@@ -51,6 +51,8 @@ services:
     networks:
       - kafka-network
       - redis-network
+    volumes:
+      - model_store:/usr/share/model_store
     depends_on:
       - zookeeper
       - kafka
@@ -62,3 +64,7 @@ networks:
     driver: bridge
   redis-network:
     driver: bridge
+
+volumes:
+  model_store:
+    driver: local

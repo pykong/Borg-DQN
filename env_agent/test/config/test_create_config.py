@@ -13,7 +13,7 @@ test_data = [
     ("epsilon_min", 0.1, "0.05"),
     ("gamma", 0.99, "0.98"),
     ("batch_size", 32, "64"),
-    # ("model_save_interval", None, "1000"),
+    ("model_save_interval", None, "500_000"),
     ("log_level", LogLevel.WARNING, "ERROR"),
 ]
 

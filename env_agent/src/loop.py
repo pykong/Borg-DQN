@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Final
 from uuid import UUID, uuid4
 
@@ -13,6 +14,7 @@ from .transition import Transition
 
 KAFKA_CONFIG = {"bootstrap.servers": "kafka:9092"}
 REDIS_CONFIG = {"host": "redis", "port": 6379}
+MODEL_SAVE_PATH: Final[Path] = Path("/usr/share/model_store")
 
 
 def loop(config: Config) -> None:
@@ -73,9 +75,14 @@ def loop(config: Config) -> None:
     done = False
     state = env.reset()
     for step_count in range(1, config.steps):
+        # run step
         done, state = run_step(
             step_count=step_count,
             done=done,
             state=state,
             epsilon=epsilon(),
         )
+        # save model
+        if config.model_save_interval and step_count % config.model_save_interval == 0:
+            dst = MODEL_SAVE_PATH / f"{container_id}_{step_count}.pt"
+            agent.save(dst)
