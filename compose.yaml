@@ -27,6 +27,9 @@ services:
   redis:
     image: 'redis:latest'
     container_name: 'redis'
+    command: redis-server --save 300 1 --dir /data --dbfilename redis.rdb --appendonly no
+    volumes:
+      - redis-data:/data
     ports:
       - "6379:6379"
     networks:
@@ -67,4 +70,6 @@ networks:
 
 volumes:
   model_store:
+    driver: local
+  redis-data:
     driver: local
