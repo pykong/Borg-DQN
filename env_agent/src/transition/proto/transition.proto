@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package transition.proto;
+
+message Transition {
+    bytes state = 1;
+    uint32 action = 2;
+    float reward = 3;
+    bytes next_state = 4;
+    bool done = 5;
+    repeated int32 state_shape = 6;  // Shape of the state ndarray
+    string state_dtype = 7;          // Dtype of the state ndarray
+    repeated int32 next_state_shape = 8; // Shape of the next_state ndarray
+    string next_state_dtype = 9;        // Dtype of the next_state ndarray
+}

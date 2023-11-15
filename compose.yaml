@@ -33,9 +33,38 @@ services:
       - redis-network
     restart: always
 
+  # Environment-Agent service
+  env_agent:
+    build:
+      context: ./env_agent
+      dockerfile: Dockerfile
+      target: production
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      - CONFIG_log_level=ERROR
+    networks:
+      - kafka-network
+      - redis-network
+    volumes:
+      - model_store:/usr/share/model_store
+    depends_on:
+      - zookeeper
+      - kafka
+      - redis
+
 
 networks:
   kafka-network:
     driver: bridge
   redis-network:
     driver: bridge
+
+volumes:
+  model_store:
+    driver: local
