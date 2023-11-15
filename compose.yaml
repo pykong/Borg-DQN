@@ -61,6 +61,21 @@ services:
       - kafka
       - redis
 
+  # Memory-Monitor service
+  mem_monitor:
+    build:
+      context: ./mem_monitor
+      dockerfile: Dockerfile
+      target: production
+    networks:
+      - kafka-network
+      - redis-network
+    depends_on:
+      - zookeeper
+      - kafka
+      - redis
+    restart: always
+
 
 networks:
   kafka-network:
