@@ -14,7 +14,13 @@ from .transition import Transition
 
 KAFKA_CONFIG = {"bootstrap.servers": "kafka:9092"}
 REDIS_CONFIG = {"host": "redis", "port": 6379}
-MODEL_SAVE_PATH: Final[Path] = Path("/usr/share/model_store")
+MODEL_DIR: Final[Path] = Path("/usr/share/model_store")
+
+
+def fetch_model() -> Path | None:
+    models = list(MODEL_DIR.glob("*.pt"))
+    if models:
+        return max(models, key=lambda x: x.stat().st_mtime)
 
 
 def loop(config: Config) -> None:
@@ -26,7 +32,7 @@ def loop(config: Config) -> None:
 
     # init dependencies
     env = PongEnvWrapper(state_dims=(config.input_dim, config.input_dim))
-    agent = DoubleDQNAgent(state_shape=input_shape, action_space=env.action_space.n)
+    agent = DoubleDQNAgent(input_shape, env.action_space.n, net=fetch_model())
     memory = MemoryConnector(redis_config=REDIS_CONFIG)
     epsilon = EpsilonDecayStrategy(epsilon_step=config.epsilon_step)
     reporter = KafkaReporter(KAFKA_CONFIG)
@@ -84,5 +90,4 @@ def loop(config: Config) -> None:
         )
         # save model
         if config.model_save_interval and step_count % config.model_save_interval == 0:
-            dst = MODEL_SAVE_PATH / f"{container_id}_{step_count}.pt"
-            agent.save(dst)
+            agent.save(MODEL_DIR / f"{container_id}.pt")

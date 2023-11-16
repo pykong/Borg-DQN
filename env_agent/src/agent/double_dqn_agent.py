@@ -67,6 +67,7 @@ class DoubleDQNAgent(pl.LightningModule):
         self: Self,
         state_shape: tuple[int, int, int],
         action_space: int,
+        net: nn.Sequential | None,
         alpha: float = 0.001,
         gamma: float = 0.99,
         target_net_update_interval: int = 4_000,
@@ -78,7 +79,7 @@ class DoubleDQNAgent(pl.LightningModule):
         self.target_net_update_interval = target_net_update_interval
         self.action_space = action_space
         self.device_: torch.device = get_torch_device()
-        self.policy_net = self.__init_net(state_shape, action_space, self.device_)
+        self.policy_net = self.__init_net(state_shape, action_space, self.device_, net)
         self.target_net = deepcopy(self.policy_net)
         self.optimizer = optim.RMSprop(self.policy_net.parameters(), lr=alpha)
         self.scaler = torch.cuda.amp.GradScaler(enabled=True)  # type:ignore
@@ -89,11 +90,12 @@ class DoubleDQNAgent(pl.LightningModule):
         state_shape: tuple[int, int, int],
         action_space: int,
         device_: torch.device,
+        net: nn.Sequential,
     ) -> nn.Sequential:
         """Build linear deep net."""
         channel_dim, x_dim, y_dim = state_shape
         input_dims = channel_dim * x_dim * y_dim
-        model = nn.Sequential(
+        net = net or nn.Sequential(
             # fc 1
             nn.Flatten(),
             nn.Linear(input_dims, 512),
@@ -110,9 +112,9 @@ class DoubleDQNAgent(pl.LightningModule):
             # output
             nn.Linear(16, action_space),
         )
-        model = model.to(device=device_)
-        model = model.to(memory_format=torch.channels_last)  # type:ignore
-        return model
+        net = net.to(device=device_)
+        net = net.to(memory_format=torch.channels_last)  # type:ignore
+        return net
 
     @update_target_network
     def replay(self: Self, sample: list[Transition]) -> float:
@@ -200,6 +202,7 @@ class DoubleDQNAgent(pl.LightningModule):
         Args:
             name (Path): The path to the model file.
         """
+        logger.info(f"Loading model: {name}")
         checkpoint = torch.load(name)
         self.policy_net.load_state_dict(checkpoint["policy_net"])
         self.target_net.load_state_dict(checkpoint["target_net"])
@@ -212,6 +215,7 @@ class DoubleDQNAgent(pl.LightningModule):
         Args:
             name (Path): The file path to save the model to.
         """
+        logger.info(f"Saving model: {name}")
         checkpoint = {
             "policy_net": self.policy_net.state_dict(),
             "target_net": self.target_net.state_dict(),
