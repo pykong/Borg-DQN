@@ -21,6 +21,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     networks:
       - kafka-network
+      - elk-network
     restart: always
 
   # Redis service
@@ -76,11 +77,63 @@ services:
       - redis
     restart: always
 
+  # Logstash service
+  logstash:
+    image: vungle/logstash-kafka-es:latest
+    # image: docker.elastic.co/logstash/logstash:7.17.14
+    volumes:
+      - ./logstash/config:/logstash/config
+      - ./logstash/config-tmpl:/logstash/config-tmpl
+    depends_on:
+      - zookeeper
+      - kafka
+      - elasticsearch
+    networks:
+      - kafka-network
+      - elk-network
+
+  # Elasticsearch service
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.14
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    environment:
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 2g
+    networks:
+      - elk-network
+    ports:
+      - 9200:9200
+    healthcheck:
+      test: ["CMD", "curl","-s" ,"-f", "http://localhost:9200/_cat/health"]
+
+  # Kibana service
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.14
+    ports:
+      - "5601:5601"
+    depends_on:
+      elasticsearch: { condition: service_healthy }
+    restart: on-failure
+    networks:
+      - elk-network
+    volumes:
+      - ./kibana:/usr/local/kibana
+    command: /usr/local/kibana/kibana_startup.sh
+
 
 networks:
   kafka-network:
     driver: bridge
   redis-network:
+    driver: bridge
+  elk-network:
     driver: bridge
 
 volumes:

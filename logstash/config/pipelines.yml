@@ -1,0 +1,3 @@
+- pipeline.id: kafka-ingest
+  path.config: /logstash/config-tmpl
+  pipeline.workers: 1
