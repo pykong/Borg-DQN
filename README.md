@@ -62,11 +62,15 @@ To start the application run from the root directory:
 docker compose up
 ```
 
+Observe the learning progress and memory growth on the [live dashboard](http://localhost:5601/app/dashboards#/view/6c58f7d0-71c5-11ee-bccb-318d0f7f71cb?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15m,to:now))).
+
 To start the application with multiple game containers run:
 
 ```sh
 docker compose up --scale env_agent=3
 ```
+
+The [Elasticsearch indices](http://localhost:9200/_cat/indices?pretty) can also be looked into.
 
 ## Architecture
 
@@ -121,6 +125,13 @@ The memory monitor is a Python microservice that periodically polls the Redis sh
 ### ELK Stack
 
 The [ELK stack](https://www.elastic.co/de/elastic-stack), comprising `Elasticsearch`, `Logstash`, and `Kibana`, serves as a battle-tested trio for managing, processing, and visualizing data in real-time, making it ideal for observing training progress and replay memory growth in Borg-DQN. Elasticsearch acts as a search and analytics engine with robust database characteristics, allowing for quick retrieval and analysis of large datasets. Logstash seamlessly ingests data from Kafka through a declarative pipeline configuration, eliminating the need for custom code. Kibana leverages this integration to provide a user-customizable dashboard, all components being from Elastic, ensuring compatibility and stability.
+
+<p align="center">
+    <a href="#readme">
+        <img alt="Kibana screenshot" src="https://raw.githubusercontent.com/pykong/Borg-DQN/main/docs/img/kibana.png">
+        <!-- Kibana screenshot credits: Benjamin Felder -->
+    </a>
+</p>
 
 ### Development
 
