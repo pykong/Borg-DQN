@@ -53,10 +53,15 @@ dashboard.
 
 ### Requirements
 
-The execution of Borg-DQN requires a working installation of `Docker``, as well as the` nvidia-container-toolkit`` to passthrough CUDA-acceleration to the container instances. Refer to the respective documentation for installation instructions:
+The execution of Borg-DQN requires a working installation of `Docker`, as well as the `nvidia-container-toolkit` to passthrough CUDA-acceleration to the container instances. Refer to the respective documentation for installation instructions:
 
 - [Install Docker Engine](https://docs.docker.com/engine/install/)
 - [Installing the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+
+The development furthermore requires a working Python 3.11 interpreter and `poetry` for dependency management:
+
+- [Python Releases](https://www.python.org/downloads/)
+- [Poetry installation](https://python-poetry.org/docs/#installation)
 
 ### Starting Up
 
@@ -74,7 +79,11 @@ docker compose up --scale env_agent=3
 
 ### Development
 
-## Future plans
+The development
+
+<!-- multi-stage builds -->
+
+## Plans
 
 <!-- individual agent configuration, exploration-exploitation trade-off -->
 
