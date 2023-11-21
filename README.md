@@ -1,11 +1,4 @@
 <p align="center">
-    <a href="#readme">
-        <img alt="Title picture" src="https://raw.githubusercontent.com/pykong/Borg-DQN/main/docs/img/title_picture.png">
-        <!-- Title picture credits: Benjamin Felder -->
-        <!-- Title picture created using DALL-E -->
-    </a>
-</p>
-<p align="center">
     <a href="#readme"><img alt="PlaceholderBadge" src="https://badgen.net/static/PyVersion/3.11/purple"></a>
     <a href="#readme"><img alt="PlaceholderBadge" src="https://badgen.net/static/Code-Quality/A+/green"></a>
     <a href="#readme"><img alt="PlaceholderBadge" src="https://badgen.net/static/Black/OK/green"></a>
@@ -15,6 +8,14 @@
     <a href="https://github.com/pykong/Borg-DQN/main/LICENSE"><img alt="License" src="https://badgen.net/static/license/MIT/blue"></a>
     <a href="#readme"><img alt="PlaceholderBadge" src="https://badgen.net/static/Build/1.0.0/pink"></a>
     <a href="#readme"><img alt="PlaceholderBadge" src="https://badgen.net/static/stars/★★★★★/yellow"></a>
+</p>
+
+<p align="center">
+    <a href="#readme">
+        <img alt="Title picture" src="https://raw.githubusercontent.com/pykong/Borg-DQN/main/docs/img/title_picture.png">
+        <!-- Title picture credits: Benjamin Felder -->
+        <!-- Title picture created using DALL-E -->
+    </a>
 </p>
 
 # Borg-DQN
@@ -88,6 +89,13 @@ In the following, there is a short overview of each component of the application
 ### Game Container
 
 The game container encapsulates an Atari Pong environment (OpenAI gym) and a double deep Q-network agent (using PyTorch). The code is adapted from [MERLIn](https://github.com/pykong/merlin), an earlier reinforcement learning project by the author.
+
+<p align="center">
+    <a href="#readme">
+        <img alt="Pong screenshot" src="https://raw.githubusercontent.com/pykong/Borg-DQN/main/docs/img/pong.png">
+        <!-- Pong screenshot credits: Benjamin Felder -->
+    </a>
+</p>
 
 <!-- configuration -->
 
