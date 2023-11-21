@@ -19,12 +19,12 @@
 
 # Borg-DQN
 
-A Stream-Fueled Hive Mind for Reinforcement Learning.
+**A Stream-Fueled Hive Mind for Reinforcement Learning.**
 
 This project originated as the implementation of the portfolio assignment for the data engineering module DLMDSEDE02 at the International University of Applied Sciences.
 
 <!-- Shared Memory -->
-<!-- Demonstrating Streaming App -->
+<!-- Demonstrating Streaming App with a focus on a machine learning application -->
 
 Borg-DQN presents a distributed approach to reinforcement learning centered around a shared replay
 memory. Echoing the collective intelligence of the Borg from the Star Trek universe, the system
@@ -85,6 +85,27 @@ In the following, there is a short overview of each component of the application
 
 The game container encapsulates an Atari Pong environment (OpenAI gym) and a double deep Q-network agent (using PyTorch). The code is adapted from [MERLIn](https://github.com/pykong/merlin), an earlier reinforcement learning project by the author.
 
+<!-- configuration -->
+
+#### Serializing Game Transitions
+
+[Protocol Buffers](https://protobuf.dev/)
+
+```.proto
+syntax = "proto3";
+
+package transition.proto;
+
+message Transition {
+    bytes state = 1;
+    uint32 action = 2;
+    float reward = 3;
+    bytes next_state = 4;
+    bool done = 5;
+    ...
+}
+```
+
 ### Replay Memory
 
 The shared replay memory employs Redis to hold game transitions. Redis is not only performant but also allows storing the transitions as serialized protobuf messages, due to its byte-safe characteristics.
@@ -95,7 +116,7 @@ The memory monitor is a Python microservice that periodically polls the Redis sh
 
 ### Kafka
 
-[Apache Kafka](https://kafka.apache.org/) is a distributed streaming platform that excels in handling high-throughput, fault-tolerant messaging. In Borg-DQN, Kafka serves as the middleware that decouples the data-producing game environments from the consuming analytics pipeline, allowing for robust scalability and the flexibility to introduce additional consumers without architectural changes. Specifically, Kafka channels log into two distinct topics, 'training_log' and 'memory_monitoring', both serialized as JSON, ensuring structured and accessible data for any downstream systems.
+[Apache Kafka](https://kafka.apache.org/) is a distributed streaming platform that excels in handling high-throughput, fault-tolerant messaging. In Borg-DQN, Kafka serves as the middleware that decouples the data-producing game environments from the consuming analytics pipeline, allowing for robust scalability and the flexibility to introduce additional consumers without architectural changes. Specifically, Kafka channels log to two distinct topics, 'training_log' and 'memory_monitoring', both serialized as JSON, ensuring structured and accessible data for any downstream systems.
 
 ### ELK Stack
 
@@ -108,7 +129,7 @@ The [ELK stack](https://www.elastic.co/de/elastic-stack), comprising Elasticsear
 ## Plans
 
 - [ ] Create external documentation, preferably using [MkDocs](https://www.mkdocs.org/)
-- [ ] Allow game container instances to be individually configured (e.g. different epsilon values to address exploitation-exploration tradeoff)
+- [ ] Allow game container instances to be individually configured (e.g. different epsilon values to address the exploitation-exploration tradeoff)
 
 ## Links
 
