@@ -44,7 +44,7 @@ dashboard.
 
 ### Requirements
 
-The execution of Borg-DQN requires a working installation of `Docker`, as well as the `nvidia-container-toolkit` to pass through CUDA-acceleration to the game container instances. Refer to the respective documentation for installation instructions:
+The execution of Borg-DQN requires a working installation of `Docker`, as well as the `nvidia-container-toolkit` to pass through CUDA acceleration to the game container instances. Refer to the respective documentation for installation instructions:
 
 - [Install Docker Engine](https://docs.docker.com/engine/install/)
 - [Installing the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
@@ -120,7 +120,7 @@ The memory monitor is a Python microservice that periodically polls the Redis sh
 
 ### ELK Stack
 
-The [ELK stack](https://www.elastic.co/de/elastic-stack), comprising Elasticsearch, Logstash, and Kibana, serves as a battle-tested trio for managing, processing, and visualizing data in real-time, making it ideal for observing training progress and replay memory growth in Borg-DQN. Elasticsearch acts as a search and analytics engine with robust database characteristics, allowing for quick retrieval and analysis of large datasets. Logstash seamlessly ingests data from Kafka through a declarative pipeline configuration, eliminating the need for custom code. Kibana leverages this integration to provide a user-customizable dashboard, all components being from Elastic, ensuring compatibility and stability.
+The [ELK stack](https://www.elastic.co/de/elastic-stack), comprising `Elasticsearch`, `Logstash`, and `Kibana`, serves as a battle-tested trio for managing, processing, and visualizing data in real-time, making it ideal for observing training progress and replay memory growth in Borg-DQN. Elasticsearch acts as a search and analytics engine with robust database characteristics, allowing for quick retrieval and analysis of large datasets. Logstash seamlessly ingests data from Kafka through a declarative pipeline configuration, eliminating the need for custom code. Kibana leverages this integration to provide a user-customizable dashboard, all components being from Elastic, ensuring compatibility and stability.
 
 ### Development
 
@@ -130,6 +130,7 @@ The [ELK stack](https://www.elastic.co/de/elastic-stack), comprising Elasticsear
 
 - [ ] Create external documentation, preferably using [MkDocs](https://www.mkdocs.org/)
 - [ ] Allow game container instances to be individually configured (e.g. different epsilon values to address the exploitation-exploration tradeoff)
+- [ ] Upgrade the replay memory to one featuring prioritization of transitions.
 
 ## Links
 
