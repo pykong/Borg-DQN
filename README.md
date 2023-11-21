@@ -53,21 +53,31 @@ The application follows an infrastructure-as-code (`IaC`) approach, wherein indi
 
 In the following, there is a short overview of each component of the application.
 
-### Game container
+### Game Container
 
 The game container encapsulates an Atari Pong environment (OpenAI gym) and a double deep Q-network agent (using PyTorch). The code is adapted from [MERLIn](https://github.com/pykong/merlin), an earlier reinforcement learning project by the author.
 
-### Replay memory
+### Replay Memory
+
+The shared replay memory employs Redis to hold game transitions. Redis is not only performant but also allows storing the transitions as serialized protobuf messages, due to its byte-safe characteristics.
+
+### Memory Monitor
+
+The memory monitor is a Python microservice that periodically polls the Redis shared memory for transition count and memory usage statistics and publishes those under a dedicated Kafka topic.
 
 ### Kafka
 
-### ELK stack
+[Apache Kafka](https://kafka.apache.org/) is a distributed streaming platform that excels in handling high-throughput, fault-tolerant messaging. In Borg-DQN, Kafka serves as the middleware that decouples the data-producing game environments from the consuming analytics pipeline, allowing for robust scalability and the flexibility to introduce additional consumers without architectural changes. Specifically, Kafka channels log into two distinct topics, 'training_log' and 'memory_monitoring', both serialized as JSON, ensuring structured and accessible data for any downstream systems.
+
+### ELK Stack
+
+The [ELK stack](https://www.elastic.co/de/elastic-stack), comprising Elasticsearch, Logstash, and Kibana, serves as a battle-tested trio for managing, processing, and visualizing data in real-time, making it ideal for observing training progress and replay memory growth in Borg-DQN. Elasticsearch acts as a search and analytics engine with robust database characteristics, allowing for quick retrieval and analysis of large datasets. Logstash seamlessly ingests data from Kafka through a declarative pipeline configuration, eliminating the need for custom code. Kibana leverages this integration to provide a user-customizable dashboard, all components being from Elastic, ensuring compatibility and stability.
 
 ## Gettings Started
 
 ### Requirements
 
-The execution of Borg-DQN requires a working installation of `Docker`, as well as the `nvidia-container-toolkit` to pass through CUDA-acceleration to the container instances. Refer to the respective documentation for installation instructions:
+The execution of Borg-DQN requires a working installation of `Docker`, as well as the `nvidia-container-toolkit` to pass through CUDA-acceleration to the game container instances. Refer to the respective documentation for installation instructions:
 
 - [Install Docker Engine](https://docs.docker.com/engine/install/)
 - [Installing the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
@@ -93,15 +103,12 @@ docker compose up --scale env_agent=3
 
 ### Development
 
-The development
-
 <!-- multi-stage builds -->
 
 ## Plans
 
-<!-- individual agent configuration, exploration-exploitation trade-off -->
-
-- [ ] Create an external documentation, preferably using [MkDocs](https://www.mkdocs.org/)
+- [ ] Create external documentation, preferably using [MkDocs](https://www.mkdocs.org/)
+- [ ] Allow game container instances to be individually configured (e.g. different epsilon values to address exploitation-exploration tradeoff)
 
 ## Links
 
