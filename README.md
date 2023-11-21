@@ -53,8 +53,10 @@ dashboard.
 
 ### Requirements
 
-<!-- Docker installed -->
-<!-- nvidia-Docker installed -->
+The execution of Borg-DQN requires a working installation of `Docker``, as well as the` nvidia-container-toolkit`` to passthrough CUDA-acceleration to the container instances. Refer to the respective documentation for installation instructions:
+
+- [Install Docker Engine](https://docs.docker.com/engine/install/)
+- [Installing the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 
 ### Starting Up
 
@@ -62,6 +64,12 @@ dashboard.
 
 ```sh
 docker compose up
+```
+
+Using multiple game containers:
+
+```sh
+docker compose up --scale env_agent=3
 ```
 
 ### Development
