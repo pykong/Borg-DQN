@@ -51,6 +51,18 @@ The application follows an infrastructure-as-code (`IaC`) approach, wherein indi
     </a>
 </p>
 
+In the following, there is a short overview of each component of the application.
+
+### Game container
+
+The game container encapsulates an Atari Pong environment (OpenAI gym) and a double deep Q-network agent (using PyTorch). The code is adapted from [MERLIn](https://github.com/pykong/merlin), an earlier reinforcement learning project by the author.
+
+### Replay memory
+
+### Kafka
+
+### ELK stack
+
 ## Gettings Started
 
 ### Requirements
