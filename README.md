@@ -42,6 +42,8 @@ dashboard.
 
 ## Architecture
 
+The application follows an infrastructure-as-code (`IaC`) approach, wherein individual services run inside Docker containers, whose configuration and interconnectivity are defined in a `compose.yaml` at its root directory.
+
 <p align="center">
     <a href="#readme">
         <img alt="Architecture diagram" src="https://raw.githubusercontent.com/pykong/Borg-DQN/main/docs/img/architecture.svg">
@@ -87,7 +89,7 @@ The development
 
 <!-- individual agent configuration, exploration-exploitation trade-off -->
 
-- [] Create an external documentation, preferably using [MkDocs](https://www.mkdocs.org/)
+- [ ] Create an external documentation, preferably using [MkDocs](https://www.mkdocs.org/)
 
 ## Links
 
