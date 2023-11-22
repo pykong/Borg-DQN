@@ -12,6 +12,7 @@ sudo docker compose down
 sudo docker volume rm borg-dqn_model_store
 sudo docker volume rm borg-dqn_redis-data
 sudo docker volume rm borg-dqn_esdata
+sudo docker volume rm borg-dqn_logs
 
 # Rebuild images
 sudo docker compose build env_agent

@@ -57,6 +57,7 @@ services:
       - redis-network
     volumes:
       - model_store:/usr/share/model_store
+      - logs:/usr/share/logs
     depends_on:
       - zookeeper
       - kafka
@@ -71,6 +72,8 @@ services:
     networks:
       - kafka-network
       - redis-network
+    volumes:
+      - logs:/usr/share/logs
     depends_on:
       - zookeeper
       - kafka
@@ -143,3 +146,10 @@ volumes:
     driver: local
   esdata:
     driver: local
+  logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./logs
+

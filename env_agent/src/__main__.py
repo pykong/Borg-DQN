@@ -11,5 +11,11 @@ if __name__ == "__main__":
     # configure logger
     logger.remove(0)
     logger.add(sys.stdout, level=config.log_level)
+    logger.add("/usr/share/logs/env_agent.log",
+        level=config.log_level,
+        colorize=False,
+        backtrace=True,
+        diagnose=True,
+    )
 
     loop(config)
