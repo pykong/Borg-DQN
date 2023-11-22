@@ -24,7 +24,6 @@
 
 This project originated as the implementation of the portfolio assignment for the data engineering module DLMDSEDE02 at the International University of Applied Sciences.
 
-<!-- Shared Memory -->
 <!-- Demonstrating Streaming App with a focus on a machine learning application -->
 
 Borg-DQN presents a distributed approach to reinforcement learning centered around a **shared replay
@@ -143,13 +142,17 @@ The [ELK stack](https://www.elastic.co/de/elastic-stack), comprising `Elasticsea
 
 ### Development
 
-<!-- multi-stage builds -->
+<!-- [multi-stage builds](https://docs.docker.com/build/building/multi-stage/) -->
 
 ## Plans
 
 - [ ] Create external documentation, preferably using [MkDocs](https://www.mkdocs.org/)
 - [ ] Allow game container instances to be individually configured (e.g. different epsilon values to address the exploitation-exploration tradeoff)
 - [ ] Upgrade the replay memory to one featuring prioritization of transitions.
+
+## Contributions Welcome
+
+If you like Borg-DQN and want to develop it further, feel free to fork and open any pull request. 🤓
 
 ## Links
 
