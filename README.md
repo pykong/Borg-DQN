@@ -105,7 +105,9 @@ The game container instances can be configured via environment variables. The ea
 
 #### Serializing Game Transitions
 
-The game container will put each game transition into the shared replay memory and again sample minibatches from that memory. [Protocol Buffers](https://protobuf.dev/) short **protobuf** are used for serialization.
+The game container will put each game transition into the shared replay memory and again sample minibatches from that memory. [Protocol Buffers](https://protobuf.dev/) short **protobuf** are used for serialization, which is fast and byte-safe allowing for efficient transformation of the NumPy arrays of the game states.
+
+This approach however requires the definition and maintenance of a [`.proto`](https://github.com/pykong/Borg-DQN/blob/main/env_agent/src/transition/proto/transition.proto) schema file, from which native Python code is derived:
 
 ```.proto
 syntax = "proto3";
