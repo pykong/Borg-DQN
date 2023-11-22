@@ -126,7 +126,9 @@ message Transition {
 
 ### Replay Memory
 
-The shared replay memory employs Redis to hold game transitions. Redis is not only performant but also allows storing the transitions as serialized protobuf messages, due to its byte-safe characteristics.
+The shared replay memory employs [Redis](https://redis.io/) to hold game transitions. Redis is not only performant but also allows storing the transitions as serialized **protobuf** messages, due to its byte-safe characteristics.
+
+Redis however does not natively support queues, as demanded by the use case. The workaround used is to emulate queue behavior by the client-side execution of the [`LTRIM`](https://redis.io/commands/ltrim/) command.
 
 ### Memory Monitor
 
