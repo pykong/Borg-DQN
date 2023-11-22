@@ -22,9 +22,7 @@
 
 **A Stream-Fueled Hive Mind for Reinforcement Learning.**
 
-This project originated as the implementation of the portfolio assignment for the data engineering module DLMDSEDE02 at the International University of Applied Sciences.
-
-<!-- Demonstrating Streaming App with a focus on a machine learning application -->
+This project originated as the implementation of the portfolio assignment for the data engineering module DLMDSEDE02 at the International University of Applied Sciences. It demonstrates how to build a streaming data-intensive application with a machine-learning focus.
 
 Borg-DQN presents a distributed approach to reinforcement learning centered around a **shared replay
 memory**. Echoing the collective intelligence of the [Borg](https://memory-alpha.fandom.com/wiki/Borg_Collective)
@@ -74,7 +72,7 @@ The [Elasticsearch indices](http://localhost:9200/_cat/indices?pretty) can also 
 
 ## Architecture
 
-The application follows an infrastructure-as-code (`IaC`) approach, wherein individual services run inside Docker containers, whose configuration and interconnectivity are defined in a `compose.yaml` at its root directory.
+The application follows an infrastructure-as-code (`IaC`) approach, wherein individual services run inside Docker containers, whose configuration and interconnectivity are defined in a [`compose.yaml`](https://github.com/pykong/Borg-DQN/blob/readme/compose.yaml) at its root directory.
 
 <p align="center">
     <a href="#readme">
@@ -87,7 +85,7 @@ In the following, there is a short overview of each component of the application
 
 ### Game Container
 
-The game container encapsulates an Atari Pong environment (OpenAI gym) and a double deep Q-network agent (using PyTorch). The code is adapted from [MERLIn](https://github.com/pykong/merlin), an earlier reinforcement learning project by the author.
+The game container encapsulates an Atari Pong environment (OpenAI gym) and a double deep Q-network agent (using PyTorch). The code is adapted from [MERLIn](https://github.com/pykong/merlin), an earlier reinforcement learning project by [pykong](https://github.com/pykong).
 
 <p align="center">
     <a href="#readme">
