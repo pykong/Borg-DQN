@@ -27,10 +27,10 @@ This project originated as the implementation of the portfolio assignment for th
 <!-- Shared Memory -->
 <!-- Demonstrating Streaming App with a focus on a machine learning application -->
 
-Borg-DQN presents a distributed approach to reinforcement learning centered around a shared replay
-memory. Echoing the collective intelligence of the Borg from the Star Trek universe, the system
-enables individual agents to tap into a hive-mind-like pool of communal experiences to enhance learning
-efficiency and robustness.
+Borg-DQN presents a distributed approach to reinforcement learning centered around a **shared replay
+memory**. Echoing the collective intelligence of the [Borg](https://memory-alpha.fandom.com/wiki/Borg_Collective)
+from the Star Trek universe, the system enables individual agents to tap into a hive-mind-like pool of communal
+experiences to enhance learning efficiency and robustness.
 
 This system adopts a containerized microservices architecture enhanced with real-time streaming capabilities.
 Within game containers, agents employ Deep Q-Networks (DQN) for training on the Atari Pong environment
