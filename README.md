@@ -133,6 +133,7 @@ Redis however does not natively support queues, as demanded by the use case. The
 ### Memory Monitor
 
 The memory monitor is a Python microservice that periodically polls the Redis shared memory for transition count and memory usage statistics and publishes those under a dedicated Kafka topic.
+While ready-made monitoring solutions, like a Kibana integration, exist, the memory monitor demonstrates using Kafka with more than one topic, the other being the training logs.
 
 ### Kafka
 
@@ -140,7 +141,7 @@ The memory monitor is a Python microservice that periodically polls the Redis sh
 
 ### ELK Stack
 
-The [ELK stack](https://www.elastic.co/en/elastic-stack), comprising `Elasticsearch`, `Logstash`, and `Kibana`, serves as a battle-tested trio for managing, processing, and visualizing data in real-time, making it ideal for observing training progress and replay memory growth in Borg-DQN. Elasticsearch acts as a search and analytics engine with robust database characteristics, allowing for quick retrieval and analysis of large datasets. Logstash seamlessly ingests data from Kafka through a declarative pipeline configuration, eliminating the need for custom code. Kibana leverages this integration to provide a user-customizable dashboard, all components being from Elastic, ensuring compatibility and stability.
+The [ELK stack](https://www.elastic.co/en/elastic-stack), comprising `Elasticsearch`, `Logstash`, and `Kibana`, serves as a battle-tested trio for managing, processing, and visualizing data in real-time, making it ideal for observing training progress and replay memory growth in Borg-DQN. **Elasticsearch** acts as a search and analytics engine with robust database characteristics, allowing for quick retrieval and analysis of large datasets. **Logstash** seamlessly ingests data from Kafka through a declarative pipeline configuration, eliminating the need for custom code. **Kibana** leverages this integration to provide a user-customizable dashboard, all components being from Elastic, ensuring compatibility and stability.
 
 <p align="center">
     <a href="#readme">
