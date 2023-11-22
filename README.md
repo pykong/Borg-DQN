@@ -160,8 +160,9 @@ If you like Borg-DQN and want to develop it further, feel free to fork and open 
 2. [Docker Engine](https://docs.docker.com/engine/)
 3. [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/)
 4. [Poetry Docs](https://python-poetry.org/docs/)
-5. [Apache Kafka](https://kafka.apache.org/)
-6. [ELK Stack](https://www.elastic.co/en/elastic-stack)
-7. [Protocol Buffers](https://protobuf.dev/)
-8. [Massively Parallel Methods for Deep Reinforcement Learning](https://arxiv.org/pdf/1507.04296.pdf)
+5. [Redis Docs](https://redis.io/docs/)
+6. [Apache Kafka](https://kafka.apache.org/)
+7. [ELK Stack](https://www.elastic.co/en/elastic-stack)
+8. [Protocol Buffers](https://protobuf.dev/)
+9. [Massively Parallel Methods for Deep Reinforcement Learning](https://arxiv.org/pdf/1507.04296.pdf)
    - a more intricate architecture than Borg-DQN, also featuring a shared replay memory
