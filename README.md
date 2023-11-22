@@ -131,7 +131,7 @@ The memory monitor is a Python microservice that periodically polls the Redis sh
 
 ### ELK Stack
 
-The [ELK stack](https://www.elastic.co/de/elastic-stack), comprising `Elasticsearch`, `Logstash`, and `Kibana`, serves as a battle-tested trio for managing, processing, and visualizing data in real-time, making it ideal for observing training progress and replay memory growth in Borg-DQN. Elasticsearch acts as a search and analytics engine with robust database characteristics, allowing for quick retrieval and analysis of large datasets. Logstash seamlessly ingests data from Kafka through a declarative pipeline configuration, eliminating the need for custom code. Kibana leverages this integration to provide a user-customizable dashboard, all components being from Elastic, ensuring compatibility and stability.
+The [ELK stack](https://www.elastic.co/en/elastic-stack), comprising `Elasticsearch`, `Logstash`, and `Kibana`, serves as a battle-tested trio for managing, processing, and visualizing data in real-time, making it ideal for observing training progress and replay memory growth in Borg-DQN. Elasticsearch acts as a search and analytics engine with robust database characteristics, allowing for quick retrieval and analysis of large datasets. Logstash seamlessly ingests data from Kafka through a declarative pipeline configuration, eliminating the need for custom code. Kibana leverages this integration to provide a user-customizable dashboard, all components being from Elastic, ensuring compatibility and stability.
 
 <p align="center">
     <a href="#readme">
@@ -156,4 +156,12 @@ If you like Borg-DQN and want to develop it further, feel free to fork and open 
 
 ## Links
 
-<!-- link to MERLIn -->
+1. [Borg Collective](https://memory-alpha.fandom.com/wiki/Borg_Collective)
+2. [Docker Engine](https://docs.docker.com/engine/)
+3. [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/)
+4. [Poetry Docs](https://python-poetry.org/docs/)
+5. [Apache Kafka](https://kafka.apache.org/)
+6. [ELK Stack](https://www.elastic.co/en/elastic-stack)
+7. [Protocol Buffers](https://protobuf.dev/)
+8. [Massively Parallel Methods for Deep Reinforcement Learning](https://arxiv.org/pdf/1507.04296.pdf)
+   - a more intricate architecture than Borg-DQN, also featuring a shared replay memory
