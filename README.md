@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD041 -->
 <p align="center">
     <a href="#readme"><img alt="PlaceholderBadge" src="https://badgen.net/static/PyVersion/3.11/purple"></a>
     <a href="#readme"><img alt="PlaceholderBadge" src="https://badgen.net/static/Code-Quality/A+/green"></a>
@@ -47,7 +48,7 @@ The execution of Borg-DQN requires a working installation of `Docker`, as well a
 - [Install Docker Engine](https://docs.docker.com/engine/install/)
 - [Installing the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 
-The development furthermore requires a working Python 3.11 interpreter and `poetry` for dependency management:
+The development of the game and monitor containers furthermore requires a working Python 3.11 interpreter and `poetry` for dependency management:
 
 - [Python Releases](https://www.python.org/downloads/)
 - [Poetry installation](https://python-poetry.org/docs/#installation)
@@ -69,6 +70,10 @@ docker compose up --scale env_agent=3
 ```
 
 The [Elasticsearch indices](http://localhost:9200/_cat/indices?pretty) can also be looked into.
+
+#### Persistence Features
+
+Upon startup game containers load the most recent model checkpoint from the mode store location, while the replay memory will be prefilled with persisted transitions.
 
 ## Architecture
 
@@ -94,11 +99,13 @@ The game container encapsulates an Atari Pong environment (OpenAI gym) and a dou
     </a>
 </p>
 
-<!-- configuration -->
+#### Configuration
+
+The game container instances can be configured via environment variables. The easiest way is to place an `.env` file at the root of the project, keys must bear the prefix `CONFIG_`, for example, `CONFIG_alpha=1e-2`, would configure the learning rate. For a full list of configuration parameters, consult [config.py](https://github.com/pykong/Borg-DQN/blob/main/env_agent/src/config/config.py).
 
 #### Serializing Game Transitions
 
-[Protocol Buffers](https://protobuf.dev/)
+The game container will put each game transition into the shared replay memory and again sample minibatches from that memory. [Protocol Buffers](https://protobuf.dev/) short **protobuf** are used for serialization.
 
 ```.proto
 syntax = "proto3";
