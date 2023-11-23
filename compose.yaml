@@ -38,9 +38,9 @@ services:
     restart: always
 
   # Environment-Agent service
-  env_agent:
+  game:
     build:
-      context: ./env_agent
+      context: ./game
       dockerfile: Dockerfile
       target: production
     deploy:
@@ -64,9 +64,9 @@ services:
       - redis
 
   # Memory-Monitor service
-  mem_monitor:
+  monitor:
     build:
-      context: ./mem_monitor
+      context: ./monitor
       dockerfile: Dockerfile
       target: production
     networks:

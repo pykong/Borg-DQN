@@ -35,8 +35,11 @@ class KafkaReporter:
     def _run(self) -> None:
         with self.condition:
             while self.running:
-                report = self.queue.get(block=True)
-                self._push_report(report)
+                self._run_once()
+
+    def _run_once(self) -> None:
+        report = self.queue.get(block=True)
+        self._push_report(report)
 
     def _push_report(self, report: Report) -> None:
         try:

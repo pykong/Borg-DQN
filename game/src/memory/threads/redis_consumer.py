@@ -12,7 +12,7 @@ class RedisConsumerThread(RedisThread):
         if not self.queue.full() and not self.redis_empty():
             for st in self.redis_random_transitions():
                 transition = deserialize_transition(st)
-                self.queue.put(transition)
+                self.queue.put(transition, block=False)
                 logger.debug(f"Added transition to queue: {transition}")
 
     def redis_random_transitions(self) -> list[bytes]:

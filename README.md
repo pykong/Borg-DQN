@@ -66,7 +66,7 @@ Observe the learning progress and memory growth on the [live dashboard](http://l
 To start the application with multiple game containers run:
 
 ```sh
-docker compose up --scale env_agent=3
+docker compose up --scale game=3
 ```
 
 The [Elasticsearch indices](http://localhost:9200/_cat/indices?pretty) can also be looked into.
@@ -101,13 +101,13 @@ The game container encapsulates an Atari Pong environment (OpenAI gym) and a dou
 
 #### Configuration
 
-The game container instances can be configured via environment variables. The easiest way is to place an `.env` file at the root of the project, keys must bear the prefix `CONFIG_`, for example, `CONFIG_alpha=1e-2`, would configure the learning rate. For a full list of configuration parameters, consult [config.py](https://github.com/pykong/Borg-DQN/blob/main/env_agent/src/config/config.py).
+The game container instances can be configured via environment variables. The easiest way is to place an `.env` file at the root of the project, keys must bear the prefix `CONFIG_`, for example, `CONFIG_alpha=1e-2`, would configure the learning rate. For a full list of configuration parameters, consult [config.py](https://github.com/pykong/Borg-DQN/blob/main/game/src/config/config.py).
 
 #### Serializing Game Transitions
 
 The game container will put each game transition into the shared replay memory and again sample minibatches from that memory. [Protocol Buffers](https://protobuf.dev/) short **protobuf** are used for serialization, which is fast and byte-safe allowing for efficient transformation of the NumPy arrays of the game states.
 
-This approach however requires the definition and maintenance of a [`.proto`](https://github.com/pykong/Borg-DQN/blob/main/env_agent/src/transition/proto/transition.proto) schema file, from which native Python code is derived:
+This approach however requires the definition and maintenance of a [`.proto`](https://github.com/pykong/Borg-DQN/blob/main/game/src/transition/proto/transition.proto) schema file, from which native Python code is derived:
 
 ```.proto
 syntax = "proto3";
