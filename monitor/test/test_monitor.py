@@ -8,7 +8,7 @@ from src.monitor import get_redis_metrics, push_to_kafka
 @patch("redis.Redis")
 def test_get_redis_metrics(mock_redis):
     mock_redis_instance = MagicMock()
-    mock_redis_instance.info.return_value = {"used_memory": 1000}
+    mock_redis_instance.info.return_value = {"used_memory_dataset": 1000}
     mock_redis_instance.llen.return_value = 5
     mock_redis.return_value = mock_redis_instance
 
