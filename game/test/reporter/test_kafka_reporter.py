@@ -1,5 +1,5 @@
 from test.reporter.utils import create_random_report
-from unittest.mock import ANY, MagicMock, Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 
@@ -27,7 +27,9 @@ def test_send_report_adds_to_queue(kafka_reporter):
     report = create_random_report()
 
     # When send_report is called
-    kafka_reporter.send_report(report)
+    kafka_reporter.running = False
+    with kafka_reporter.condition:
+        kafka_reporter.send_report(report)
 
     # Then the report should be added to the queue
     assert not kafka_reporter.queue.empty()
@@ -41,13 +43,15 @@ def test_run_once_pushes_report(kafka_reporter, mock_kafka_producer):
     kafka_reporter.queue.put(report)
 
     # When _run_once is called
-    kafka_reporter._run_once()
+    kafka_reporter.running = False
+    with kafka_reporter.condition:
+        kafka_reporter._run_once()
 
     # Then the report should be pushed to Kafka
     assert mock_kafka_producer.produce.call_count == 1
-    assert mock_kafka_producer.produce.call_args[0] == (
+    mock_kafka_producer.produce.assert_called_with(
         KafkaReporter.TOPIC,
-        report.to_json(),
+        value=report.to_json(),
     )
 
 
@@ -56,7 +60,7 @@ def test_run_once_skips_when_queue_is_empty(kafka_reporter, mock_kafka_producer)
     assert kafka_reporter.queue.empty()
 
     # When _run_once is called
-    kafka_reporter.running = False  # needed to short-circuit wait for condition
+    kafka_reporter.running = False
     with kafka_reporter.condition:
         kafka_reporter._run_once()
 
