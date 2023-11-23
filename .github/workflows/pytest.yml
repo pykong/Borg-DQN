@@ -1,0 +1,36 @@
+name: Run Pytest on Pull Requests
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        directory: ['game', 'monitor']
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install Poetry
+      run: curl -sSL https://install.python-poetry.org | python3 -
+
+    - name: Install dependencies
+      run: |
+        cd ${{ matrix.directory }}
+        python -m pip install --upgrade pip
+        poetry install
+
+    - name: Run pytest
+      run: |
+        cd ${{ matrix.directory }}
+        poetry run pytest
