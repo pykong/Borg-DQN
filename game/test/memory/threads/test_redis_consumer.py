@@ -17,7 +17,7 @@ def mock_redis_client():
 # Create a test instance of RedisConsumerThread
 @pytest.fixture(scope="function")
 def consumer_thread(mock_redis_client):
-    queue = Queue(8)
+    queue = Queue(32)
     redis_config = {"host": "localhost", "port": 6379}
     consumer = RedisConsumerThread(redis_config, queue)
     consumer.client = mock_redis_client
@@ -38,7 +38,7 @@ def test_run_once_adds_to_queue(consumer_thread, mock_redis_client):
 
     # Then the item should be added to the queue
     assert not consumer_thread.queue.empty()
-    actual = consumer_thread.queue.get()
+    actual = consumer_thread.queue.get_nowait()
     assert_transitions_equal(transition, actual)
 
 
@@ -53,7 +53,7 @@ def test_run_once_skips_when_queue_is_full(consumer_thread, mock_redis_client):
 
     # When Redis has one item
     mock_redis_client.llen.return_value = 1
-    mock_redis_client.brpop.return_value = ("transitions", serialized_transition)
+    mock_redis_client.lindex.return_value = serialized_transition
 
     # And _run_once is called
     consumer_thread._run_once()
