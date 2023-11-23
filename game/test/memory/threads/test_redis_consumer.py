@@ -31,7 +31,7 @@ def test_run_once_adds_to_queue(consumer_thread, mock_redis_client):
 
     # When Redis has one item
     mock_redis_client.llen.return_value = 1
-    mock_redis_client.srandmember.return_value = [serialized_transition]
+    mock_redis_client.lindex.return_value = serialized_transition
 
     # And _run_once is called
     consumer_thread._run_once()

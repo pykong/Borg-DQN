@@ -5,6 +5,7 @@ from uuid import UUID
 from dataclasses_json import dataclass_json
 
 
+# TODO: freeze
 @dataclass_json
 @dataclass
 class Report:
@@ -14,7 +15,3 @@ class Report:
     epsilon: float
     loss: float
     done: bool
-    # timestamp: datetime | None = None
-
-    # def __post_init__(self):
-    #     self.timestamp = datetime.now()
