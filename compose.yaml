@@ -38,9 +38,9 @@ services:
     restart: always
 
   # Environment-Agent service
-  env_agent:
+  game:
     build:
-      context: ./env_agent
+      context: ./game
       dockerfile: Dockerfile
       target: production
     deploy:

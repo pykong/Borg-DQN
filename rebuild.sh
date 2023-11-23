@@ -15,7 +15,7 @@ sudo docker volume rm borg-dqn_esdata
 sudo docker volume rm borg-dqn_logs
 
 # Rebuild images
-sudo docker compose build env_agent
+sudo docker compose build game
 sudo docker compose build mem_monitor
 
 # Start services
