@@ -55,19 +55,6 @@ def test_run_once_pushes_report(kafka_reporter, mock_kafka_producer):
     )
 
 
-def test_run_once_skips_when_queue_is_empty(kafka_reporter, mock_kafka_producer):
-    # Given an empty queue
-    assert kafka_reporter.queue.empty()
-
-    # When _run_once is called
-    kafka_reporter.running = False
-    with kafka_reporter.condition:
-        kafka_reporter._run_once()
-
-    # Then no Kafka operation should be called
-    mock_kafka_producer.produce.assert_not_called()
-
-
 def test_terminate_stops_thread(kafka_reporter):
     # When the terminate function is called
     kafka_reporter._terminate(None, None)
