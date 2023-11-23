@@ -11,7 +11,7 @@ LOG_LEVEL: Final[str] = "DEBUG"
 # configure logger
 logger.remove(0)
 logger.add(sys.stdout, level=LOG_LEVEL)
-logger.add("/usr/share/logs/mem_monitor.log",
+logger.add("/usr/share/logs/monitor.log",
     level=LOG_LEVEL,
     colorize=False,
     backtrace=True,
